@@ -1,0 +1,42 @@
+# Бинарные файлы, кеш, временные файлы
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.o
+*.a
+*.lo
+*.la
+*.swp
+*.swo
+
+# Кеш компилятора Go и модули
+/go/pkg/
+/go/bin/
+/go/src/
+*.sum
+vendor/
+
+# Логи и отладочная информация
+*.log
+*.trace
+*.prof
+*.test_coverage.out
+kafka_data
+
+# IDE и редакторы
+.idea/
+.vscode/
+
+# Конфигурационные файлы
+.env
+.env.local
+
+# frontend
+node_modules
+dist
+.angular
+.e2e
