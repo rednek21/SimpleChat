@@ -1,6 +1,6 @@
 package cors
 
-import "github.com/rednek21/MTSTechHack/chat/config"
+import "github.com/rednek21/SimpleChat/config"
 
 type OriginChecker interface {
 	IsAllowed(origin string) bool

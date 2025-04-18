@@ -2,10 +2,10 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/rednek21/MTSTechHack/chat/src/managers"
-	"github.com/rednek21/MTSTechHack/chat/src/transport/grpc/clients"
-	"github.com/rednek21/MTSTechHack/chat/src/transport/http/cors"
-	"github.com/rednek21/MTSTechHack/chat/src/transport/http/handler"
+	"github.com/rednek21/SimpleChat/src/managers"
+	"github.com/rednek21/SimpleChat/src/transport/grpc/clients"
+	"github.com/rednek21/SimpleChat/src/transport/http/cors"
+	"github.com/rednek21/SimpleChat/src/transport/http/handler"
 	"go.uber.org/zap"
 )
 

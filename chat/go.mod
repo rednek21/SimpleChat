@@ -1,4 +1,4 @@
-module github.com/rednek21/MTSTechHack/chat
+module github.com/rednek21/SimpleChat
 
 go 1.23.1
 

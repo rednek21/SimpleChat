@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"github.com/rednek21/MTSTechHack/chat/src/managers"
-	"github.com/rednek21/MTSTechHack/chat/src/transport/http/cors"
+	"github.com/rednek21/SimpleChat/src/managers"
+	"github.com/rednek21/SimpleChat/src/transport/http/cors"
 	"go.uber.org/zap"
 	"net/http"
 )

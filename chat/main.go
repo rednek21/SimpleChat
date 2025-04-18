@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"github.com/rednek21/MTSTechHack/chat/config"
-	"github.com/rednek21/MTSTechHack/chat/src/container"
-	"github.com/rednek21/MTSTechHack/chat/src/transport/http"
+	"github.com/rednek21/SimpleChat/config"
+	"github.com/rednek21/SimpleChat/src/container"
+	"github.com/rednek21/SimpleChat/src/transport/http"
 	c "github.com/rednek21/go-toolkit/config"
 	"log"
 )

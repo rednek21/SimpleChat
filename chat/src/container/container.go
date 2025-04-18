@@ -3,9 +3,9 @@ package container
 import (
 	"context"
 	"fmt"
-	"github.com/rednek21/MTSTechHack/chat/config"
-	"github.com/rednek21/MTSTechHack/chat/src/managers"
-	"github.com/rednek21/MTSTechHack/chat/src/transport/grpc/clients"
+	"github.com/rednek21/SimpleChat/config"
+	"github.com/rednek21/SimpleChat/src/managers"
+	"github.com/rednek21/SimpleChat/src/transport/grpc/clients"
 	"github.com/rednek21/go-toolkit/logger"
 	"go.uber.org/zap"
 )
