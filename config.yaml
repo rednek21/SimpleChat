@@ -1,0 +1,30 @@
+chat:
+  http:
+    host: 0.0.0.0
+    port: 1111
+    cors:
+      origins:
+        - http://0.0.0.0:80
+        - http://127.0.0.1:80
+        - http://frontend:80
+        - https://0.0.0.0:80
+        - https://127.0.0.1:80
+        - https://frontend:80
+        - https://*
+        - http://*
+      headers:
+        - Origin
+        - Content-Type
+        - Authorization
+        - Connection
+        - Sec-WebSocket-Key
+        - Sec-WebSocket-Version
+        - Sec-WebSocket-Extensions
+        - Upgrade
+      allow-credentials: true
+  log-file: ./chat.log
+
+logger:
+  max-size-mb: 5
+  max-backups: 10
+  max-age-days: 7

@@ -1,0 +1,10 @@
+services:
+  chat:
+    build: chat
+    ports:
+      - "1111:1111"
+    environment:
+      CONFIG_PATH: ../config.yaml
+    volumes:
+      - ./config.yaml:/config.yaml
+      - ./chat/chat.log:/chat/chat.log
