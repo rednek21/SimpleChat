@@ -99,7 +99,7 @@ func (s *Server) setupEngine() *gin.Engine {
 	engine.Use(cors.New(corsCfg))
 
 	routeGroups := routes.GetV1RouteGroups(
-		s.di.Clients.LLMClient,
+		s.di.Clients.AnyClient,
 		s.di.Managers.ChatConnManager,
 		s.originChecker,
 		s.logger,

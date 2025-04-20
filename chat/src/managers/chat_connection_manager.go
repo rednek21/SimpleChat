@@ -34,3 +34,9 @@ func (m *ChatConnManager) Get(ip string) (*websocket.Conn, bool) {
 	conn, ok := m.conns[ip]
 	return conn, ok
 }
+
+func (m *ChatConnManager) GetConns() map[string]*websocket.Conn {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	return m.conns
+}

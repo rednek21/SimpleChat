@@ -16,7 +16,7 @@ type Client interface {
 
 type Handler struct {
 	logger        *zap.Logger
-	llm           Client
+	client        Client
 	connManager   *managers.ChatConnManager
 	originChecker cors.OriginChecker
 }
@@ -28,7 +28,7 @@ func NewChatHandler(
 	checker cors.OriginChecker,
 ) *Handler {
 	return &Handler{
-		llm:           chatManager,
+		client:        chatManager,
 		logger:        logger,
 		connManager:   connManager,
 		originChecker: checker,
@@ -38,13 +38,16 @@ func NewChatHandler(
 func (h *Handler) RegisterRoutes(r *gin.RouterGroup) {
 	publicEndpoints := r.Group("")
 	{
-		publicEndpoints.GET("", func(c *gin.Context) {
-			h.HandleWebSocket(c)
+		publicEndpoints.GET("/unicast", func(c *gin.Context) {
+			h.Unicast(c)
+		})
+		publicEndpoints.GET("/multicast", func(c *gin.Context) {
+			h.Multicast(c)
 		})
 	}
 }
 
-func (h *Handler) HandleWebSocket(c *gin.Context) {
+func (h *Handler) Unicast(c *gin.Context) {
 	upgrader := h.getUpgrader()
 	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
@@ -64,7 +67,7 @@ func (h *Handler) HandleWebSocket(c *gin.Context) {
 			break
 		}
 
-		response, err := h.llm.SendMessage(c.Request.Context(), string(msg))
+		response, err := h.client.SendMessage(c.Request.Context(), string(msg))
 		if err != nil {
 			h.logger.Error("Process failed", zap.Error(err))
 			continue
@@ -73,6 +76,38 @@ func (h *Handler) HandleWebSocket(c *gin.Context) {
 		if err := conn.WriteMessage(websocket.TextMessage, []byte(response)); err != nil {
 			h.logger.Error("Write error", zap.Error(err))
 			break
+		}
+	}
+}
+
+func (h *Handler) Multicast(c *gin.Context) {
+	upgrader := h.getUpgrader()
+	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+	if err != nil {
+		h.logger.Error("Upgrade failed", zap.Error(err))
+		return
+	}
+	defer conn.Close()
+
+	ip := conn.RemoteAddr().String()
+	h.connManager.Add(ip, conn)
+	defer h.connManager.Remove(ip)
+
+	for {
+		_, msg, err := conn.ReadMessage()
+		if err != nil {
+			h.logger.Error("Read error", zap.Error(err))
+			break
+		}
+
+		for _, c := range h.connManager.GetConns() {
+			if c.RemoteAddr().String() != ip {
+				go func(conn *websocket.Conn) {
+					if err := c.WriteMessage(websocket.TextMessage, msg); err != nil {
+						h.logger.Error("Write error", zap.Error(err))
+					}
+				}(c)
+			}
 		}
 	}
 }

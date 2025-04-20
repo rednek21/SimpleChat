@@ -11,7 +11,7 @@ import (
 )
 
 type Clients struct {
-	LLMClient *clients.AnyClient
+	AnyClient *clients.AnyClient
 }
 
 type Managers struct {
@@ -43,14 +43,14 @@ func NewContainer(ctx context.Context, cfg *config.Config) (*Container, error) {
 	// ChatConnManager initialize
 	chatConnManager := managers.NewChatConnManager()
 
-	// LLMClient initialization
-	llmClient := clients.NewAnyClient()
+	// Client initialization
+	anyClient := clients.NewAnyClient()
 
 	return &Container{
 		Logger: l,
 
 		Clients: Clients{
-			LLMClient: llmClient,
+			AnyClient: anyClient,
 		},
 		Managers: Managers{
 			ChatConnManager: chatConnManager,
