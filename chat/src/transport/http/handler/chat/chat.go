@@ -1,4 +1,4 @@
-package handler
+package chat
 
 import (
 	"context"
@@ -38,6 +38,8 @@ func NewChatHandler(
 func (h *Handler) RegisterRoutes(r *gin.RouterGroup) {
 	publicEndpoints := r.Group("")
 	{
+		// Current connManager impl issue
+		// using multicast endpoint with active unicast, you will see extra messages
 		publicEndpoints.GET("/unicast", func(c *gin.Context) {
 			h.Unicast(c)
 		})

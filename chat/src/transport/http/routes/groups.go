@@ -5,7 +5,7 @@ import (
 	"github.com/rednek21/SimpleChat/src/managers"
 	"github.com/rednek21/SimpleChat/src/transport/grpc/clients"
 	"github.com/rednek21/SimpleChat/src/transport/http/cors"
-	"github.com/rednek21/SimpleChat/src/transport/http/handler"
+	"github.com/rednek21/SimpleChat/src/transport/http/handler/chat"
 	"go.uber.org/zap"
 )
 
@@ -27,7 +27,7 @@ func GetV1RouteGroups(
 	return []RouteGroup{
 		{
 			Prefix: "/chat",
-			Router: handler.NewChatHandler(client, manager, logger, checker),
+			Router: chat.NewChatHandler(client, manager, logger, checker),
 		},
 	}
 }

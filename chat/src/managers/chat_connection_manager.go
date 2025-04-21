@@ -40,3 +40,10 @@ func (m *ChatConnManager) GetConns() map[string]*websocket.Conn {
 	defer m.mu.RUnlock()
 	return m.conns
 }
+
+// chat {id, map[ip]conn}
+// conn {*websocket.Conn}
+// user {ip, []*chat}
+
+// user sees his chats -> user opens any chat -> create connection for user to this chat ->
+// -> user can send message -> send message for others
